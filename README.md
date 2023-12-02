@@ -1,6 +1,6 @@
-# PapyrusTweaks
+# Formlist Monitor
 
-Collection of tweaks and fixes for Skyrim's Papyrus engine.
+Monitors Skyrim's formlists for circular references and warns the player when they occur
 
 ## Requirements
 * [CMake](https://cmake.org/)

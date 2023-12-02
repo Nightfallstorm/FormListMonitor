@@ -1,9 +1,4 @@
-#include "ExperimentalHooks.h"
-#include "LoggerHooks.h"
-#include "ModifyHooks.h"
-#include "Papyrus.h"
-#include "Settings.h"
-#include "VRHooks.h"
+#include "hooks.h"
 
 void MessageHandler(SKSE::MessagingInterface::Message* a_message)
 {
@@ -77,19 +72,8 @@ extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_s
 
 	auto messaging = SKSE::GetMessagingInterface();
 	messaging->RegisterListener(MessageHandler);
+	
+	hooks::InstallHooks();
 
-	try {
-		Settings::GetSingleton()->Load();
-	} catch (...) {
-		logger::error("Exception caught when loading settings! Default settings will be used");
-	}
-
-	ModifyHooks::InstallHooks();
-	LoggerHooks::InstallHooks();
-	VRHooks::InstallHooks();
-	ExperimentalHooks::InstallHooks();
-
-	auto papyrus = SKSE::GetPapyrusInterface();
-	papyrus->Register(Papyrus::Bind);
 	return true;
 }
